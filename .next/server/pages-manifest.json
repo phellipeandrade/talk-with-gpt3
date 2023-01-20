@@ -1,0 +1,14 @@
+{
+  "/_error": "pages/_error.js",
+  "/api/conversationContext": "pages/api/conversationContext.js",
+  "/api/generate": "pages/api/generate.js",
+  "/api/serpapi": "pages/api/serpapi.js",
+  "/api/intent_matching": "pages/api/intent_matching.js",
+  "/api/time_zones": "pages/api/time_zones.js",
+  "/api/temporal": "pages/api/temporal.js",
+  "/api/voice_options": "pages/api/voice_options.js",
+  "/": "pages/index.html",
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}
