@@ -1,8 +1,8 @@
 {
   "/_error": "pages/_error.js",
   "/api/conversationContext": "pages/api/conversationContext.js",
-  "/api/generate": "pages/api/generate.js",
   "/api/intent_matching": "pages/api/intent_matching.js",
+  "/api/generate": "pages/api/generate.js",
   "/api/serpapi": "pages/api/serpapi.js",
   "/api/temporal": "pages/api/temporal.js",
   "/api/time_zones": "pages/api/time_zones.js",
