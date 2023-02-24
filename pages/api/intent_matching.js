@@ -20,6 +20,7 @@ import {getTimeZoneStr} from './time_zones.js';
 import {composeQuestionFromConversation, correctStandardLanguage} from './conversationContext.js';
 import {getTemporalStr} from "./temporal";
 
+const ASK_FOR_TRIALS = 'AskForTrials'
 const ASK_FOR_CURRENT_INFO_INTENT = 'AskForCurrentInfoIntent';
 const ASK_DATE_INTENT = 'AskDateIntent';
 const ASK_TIME_INTENT = 'AskTimeIntent';
@@ -41,6 +42,7 @@ let intentArg = "";
 
 // Key entries must be lowercase
 const intentsMap = {
+  'get-trials': ASK_FOR_TRIALS,
   "get-date": ASK_DATE_INTENT,
   "get-time": ASK_TIME_INTENT,
   "get-day-of-week": ASK_DAY_INTENT,
@@ -102,6 +104,9 @@ async function matchIntent(intentRequest, locale) {
       "\n" +
       "Text: What is the capital of Ohio?\n" +
       "Intent: get-capital Ohio\n" +
+      "\n" +
+      "Text: Can I get a list of trials for that?\n" +
+      "Intent: get-trials\n" +
       "\n" +
       "Human: What is the population of Indianapolis \n" +
       "Intent: get-population Indianapolis\n" +
@@ -206,6 +211,10 @@ export async function fulfillIntent(intentRequest, lang,
   let intent = await matchIntent(intentRequest, locale);
   console.log("intentRequest: " + intentRequest);
   //console.log("locale: " + locale);
+
+  if(intent == ASK_FOR_TRIALS) {
+    console.log('Asking for trials, ')
+  }
 
   if (
       intent == ASK_FOR_CURRENT_INFO_INTENT ||

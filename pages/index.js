@@ -86,7 +86,7 @@ export default function Home() {
   const [processingTranscript, setProcessingTranscript] = useState(false);
   const [microphoneActive, setMicrophoneActive] = useState(false);
   const [chatBotActive, setChatBotActive] = useState(true);
-  const [waitingOnBot, setWaitingOnBot] = useState(false);
+  const [waitingOnBot, setWaitingOnBot] = useState(true);
 
   const translateVoiceId = "Joanna"; // Suggest declaring in constants.js, then it can be referenced below without a declaration here.
 
@@ -94,11 +94,21 @@ export default function Home() {
 
   useEffect(() => {
     setTimeout(() => {
-      handleVoiceChange("Matthew");
+      handleVoiceChange("James");
       document.getElementById('user-input').focus();
-    }, 500);
+  }, 500);
   }, []);
 
+
+  useEffect(() => {
+    setTimeout(() => {
+      handleVoiceChange("James");
+      document.getElementById('user-input').focus();
+    addConversationText('Hi, I am James. I am here to simplify the process of searching for IQVIA clinical trials, making it easier for you to find the right study to participate in.');
+    addConversationText('Please, tell me your name.');
+    waitingOnBot(false)
+  }, 1000);
+  }, []);
   function handleListenClick() {
     if (useVideoAvatar) {
       if (chatBotActive) {
@@ -110,7 +120,7 @@ export default function Home() {
       }
     }
 
-    setMicrophoneActive(true);
+    setMicrophoneActive(false);
     {
       resetTranscript();
     }
@@ -199,68 +209,8 @@ export default function Home() {
         setIdleVideoLoop(false);
         setVideoUrl("");
 
-        setVoiceId("Matthew");
-        tempVoiceId = "Matthew";
-      }
-    } else if (langArg == "es_ES") {
-      setUseVideoAvatar(false);
-      setIdleVideoLoop(false);
-      setVideoUrl("");
-
-      setVoiceId("Conchita");
-      tempVoiceId = "Conchita";
-    } else if (langArg == "fr_FR") {
-      setUseVideoAvatar(false);
-      setIdleVideoLoop(false);
-      setVideoUrl("");
-
-      setVoiceId("Celine");
-      tempVoiceId = "Celine";
-    } else if (langArg == "ja_JP") {
-      if (
-        voiceName == "Yukiko" ||
-        voiceName == "Masahiro" ||
-        voiceName == "Kensensei" ||
-        voiceName == "Mary" ||
-        voiceName == "Takeshi"
-      ) {
-        setUseVideoAvatar(true);
-        setIdleVideoLoop(true);
-        setVideoUrl(`videos/${voiceName}.mov`);
-
-        if (
-          voiceName == "Kensensei" ||
-          voiceName == "Mary" ||
-          voiceName == "Takeshi"
-        ) {
-          setUseVideoBackground(false);
-        } else {
-          setUseVideoBackground(true);
-        }
-
-        if (voiceName == "Yukiko") {
-          setVoiceId("Hiroto-JP");
-          tempVoiceId = "Hiroto-JP";
-        } else if (voiceName == "Kensensei") {
-          setVoiceId("Kentaro-JP");
-          tempVoiceId = "Kentaro-JP";
-        } else if (voiceName == "Mary") {
-          setVoiceId("Mary-JP");
-          tempVoiceId = "Mary-JP";
-        } else if (voiceName == "Takeshi") {
-          setVoiceId("Takeshi-JP");
-          tempVoiceId = "Takeshi-JP";
-        } else {
-          setVoiceId(voiceName + "-JP");
-          tempVoiceId = voiceName + "-JP";
-        }
-      } else {
-        setUseVideoAvatar(false);
-        setIdleVideoLoop(false);
-        setVideoUrl("");
-
-        setVoiceId("Mizuki");
-        tempVoiceId = "Mizuki";
+        setVoiceId("James");
+        tempVoiceId = "James";
       }
     }
     initialPrompt = generateInitialPrompt(langArg);
@@ -474,57 +424,13 @@ export default function Home() {
           translatedTextToSpeak = "";
           if (lang == "en_US") {
             say("The conversation has been erased.");
-          } else if (lang == "es_ES") {
-            say("La conversación ha sido borrada.");
-          } else if (lang == "fr_FR") {
-            say("La conversation a été effacée.");
-          } else if (lang == "ja_JP") {
-            say("会話は消去されました。");
-          }
+          } 
         }
       },
     },
     {
       command: ["(let's) switch to :language"],
-      callback: (language) => {
-        if (language.toLowerCase() == "spanish") {
-          resetTranscript();
-          handleLanguageChange("es_ES");
-          say("Switching to Spanish!");
-        } else if (language.toLowerCase() == "french") {
-          resetTranscript();
-          handleLanguageChange("fr_FR");
-          say("Switching to French!");
-        } else if (language.toLowerCase() == "japanese") {
-          resetTranscript();
-          handleLanguageChange("ja_JP");
-          say("Switching to Japanese!");
-        }
-      },
-    },
-    {
-      command: ["英語に切り替えましょう"],
-      callback: ({ command }) => {
-        resetTranscript();
-        say("はい。英語に切り替えましょう。");
-        handleLanguageChange("en_US");
-      },
-    },
-    {
-      command: ["cambiemos a inglés", "cambiar a inglés"],
-      callback: ({ command }) => {
-        resetTranscript();
-        say("Sí. Cambiemos a ingles.");
-        handleLanguageChange("en_US");
-      },
-    },
-    {
-      command: ["Passons à l'anglais", "Passer à l'anglais"],
-      callback: ({ command }) => {
-        resetTranscript();
-        say("Oui. Passons à l'anglais.");
-        handleLanguageChange("en_US");
-      },
+      callback: (language) => {  },
     },
   ];
 
@@ -1157,136 +1063,6 @@ export default function Home() {
         if (petDislikes.length > 0) {
           prompt += voiceName + " dislikes " + petDislikes + ". ";
         }
-      } else if (lang == "ja_JP") {
-        prompt =
-          "以下は" +
-          voiceName +
-          "という" +
-          age +
-          "歳の日本人" +
-          genderStr(lang) +
-          "との会話です。 会話は日本語です。 ";
-        if (livesIn.length > 0) {
-          prompt += voiceName + "は" + livesIn + "に住んでいます。 ";
-        }
-        if (nationality.length > 0) {
-          prompt += voiceName + "は" + nationality + "です。 ";
-        }
-        if (phoneNum.length > 0) {
-          prompt += voiceName + "電話番号は" + phoneNum + "です。 ";
-        }
-        if (occupation.length > 0) {
-          prompt += voiceName + "の職業は" + occupation + "です。 ";
-        }
-        if (university.length > 0) {
-          prompt += voiceName + "の大学は" + university + "です。 ";
-        }
-        if (uniMajor.length > 0) {
-          prompt += voiceName + "の専攻は" + uniMajor + "です。 ";
-        }
-
-        if (uniYear == DIDNT_ATTEND) {
-          // Didn't attend university
-          prompt += voiceName + "は大学に通っていませんでした。 ";
-        } else if (uniYear == GRADUATED) {
-          // Graduated from university
-          prompt += voiceName + "は大学を卒業しました。 ";
-        } else if (uniYear > 0) {
-          // Is attending university
-          prompt += voiceName + "は大学" + uniYear + "年生です。 ";
-        }
-
-        if (hobbies.length > 0) {
-          prompt += voiceName + "の趣味は" + hobbies + "です。 ";
-        }
-        if (favFood.length > 0) {
-          prompt += voiceName + "の好きな食べ物は" + favFood + "です。 ";
-        }
-        if (favDrink.length > 0) {
-          prompt += voiceName + "の好きな飲み物は" + favDrink + "です。 ";
-        }
-        if (favCoffeeShop.length > 0) {
-          prompt +=
-            voiceName + "の好きなきっさてんは" + favCoffeeShop + "です。 ";
-        }
-        if (favRestaurant.length > 0) {
-          prompt +=
-            voiceName + "の好きなレストランは" + favRestaurant + "です。 ";
-        }
-        if (favMovie.length > 0) {
-          prompt += voiceName + "の好きな映画は" + favMovie + "です。 ";
-        }
-        if (favTvShow.length > 0) {
-          prompt += voiceName + "の好きなテレビ番組は" + favTvShow + "です。 ";
-        }
-        if (favSport.length > 0) {
-          prompt += voiceName + "の好きなスポーツは" + favSport + "です。 ";
-        }
-        if (famFather.length > 0) {
-          prompt += voiceName + "の父は" + famFather + "です。 ";
-        }
-        if (famMother.length > 0) {
-          prompt += voiceName + "の母は" + famMother + "です。 ";
-        }
-        if (famSisters.length > 0) {
-          prompt += voiceName + "の姉妹は" + famSisters + "です。 ";
-        }
-        if (famBrothers.length > 0) {
-          prompt += voiceName + "の兄弟は" + famBrothers + "です。 ";
-        }
-
-        if (famWife.length > 0) {
-          prompt += voiceName + "の妻は" + famWife + "です。 ";
-          prompt += voiceName + "の配偶者は" + famWife + "です。 ";
-        }
-        if (famHusband.length > 0) {
-          prompt += voiceName + "の夫は" + famHusband + "です。 ";
-          prompt += voiceName + "の配偶者は" + famHusband + "です。 ";
-        }
-        if (famWife.length > 0 || famHusband.length > 0) {
-          prompt += voiceName + "は結婚している。 ";
-        }
-
-        if (famChildren.length > 0) {
-          prompt += voiceName + "の子は" + famChildren + "です。 ";
-        }
-        if (friends.length > 0) {
-          prompt += voiceName + "の友達は" + friends + "です。 ";
-        }
-        if (favColor.length > 0) {
-          prompt += voiceName + "の好きな色は" + favColor + "です。 ";
-        }
-        if (favMusicGenre.length > 0) {
-          prompt +=
-            voiceName + "の好きな音楽ジャンルは" + favMusicGenre + "です。 ";
-        }
-        if (favBand.length > 0) {
-          prompt += voiceName + "の好きなバンドは" + favBand + "です。 ";
-        }
-        if (petLikes.length > 0) {
-          prompt += voiceName + "は" + petLikes + "が好きです。 ";
-        }
-        if (petDislikes.length > 0) {
-          prompt += voiceName + "は" + petDislikes + "が嫌いです。 ";
-        }
-      } else if (lang == "fr_FR") {
-        prompt =
-          "Ce qui suit est une conversation avec " +
-          genderStr(lang) +
-          " de " +
-          age +
-          " ans nommée " +
-          voiceName +
-          ". La conversation est en français. ";
-      } else if (lang == "es_ES") {
-        prompt =
-          "La siguiente es una conversación con " +
-          genderStr(lang) +
-          " de " +
-          age +
-          " años llamado " +
-          voiceName +
-          ". La conversación es en español. ";
       }
     } else {
       useCustomPrompt = true;
@@ -1304,14 +1080,7 @@ export default function Home() {
     });
     if (lang == "en_US") {
       prompt += " Today is " + formattedDate + ".";
-    } else if (lang == "es_ES") {
-      prompt += " Hoy es " + formattedDate + ".";
-    } else if (lang == "fr_FR") {
-      prompt += " Aujourd'hui est " + formattedDate + ".";
-    } else if (locale == "ja-JP") {
-      prompt += " 今日は" + formattedDate + "です。";
     }
-
     return prompt + "\n";
   }
 
@@ -1479,11 +1248,11 @@ export default function Home() {
       textToSpeak = data.result
         .trim()
         .replace(stripLangSuffix(voiceId) + "::", "");
+        console.log('textToSpeak:', textToSpeak)
     } else {
       setWaitingOnBot(false);
-
       let aiCharacter = stripLangSuffix(voiceId);
-      addConversationText(aiCharacter + ":: " + fulfillment + "\n");
+      addConversationText(aiCharacter + ": " + fulfillment + "\n");
       textToSpeak = fulfillment;
     }
 
@@ -1538,14 +1307,14 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>IQVIA GPT-3 Chat</title>
+        <title>IQVIA GPT-3 Clinical Trials Chat</title>
       </Head>
       <main>
         
         <form onSubmit={onSubmit}>
 
           <div className="header">
-            <h1>IQVIA GPT-3 Chat</h1>
+            <h1>IQVIA GPT-3 Clinical Trials Chat</h1>
             <img className="iqvia-logo" src="https://www.iqvia.com/-/media/iqvia/iqvia-logo-white.svg" />
           </div>
 

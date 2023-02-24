@@ -128,60 +128,6 @@ function matchIntent(intentRequest, locale) {
         return ASK_TIME_INTENT;
       }
     }
-    else if (locale == 'es-ES') {
-      dateSearchStrA = "cuál es la fecha de hoy ";
-      dateSearchStrB = "que fecha es ";
-      timeSearchStrA = 'qué hora es ';
-      if (cleanedIntentReq.toLowerCase().startsWith(dateSearchStrA)) {
-        // User is asking for the date in a specific location
-        intentArg = cleanedIntentReq.substring(dateSearchStrA.length);
-        return ASK_DATE_INTENT;
-      }
-      else if (cleanedIntentReq.toLowerCase().startsWith(dateSearchStrB)) {
-        // User is asking for the date in a specific location
-        intentArg = cleanedIntentReq.substring(dateSearchStrB.length);
-        return ASK_DATE_INTENT;
-      }
-      else if (cleanedIntentReq.toLowerCase().startsWith(timeSearchStrA)) {
-        // User is asking for the time in a specific location
-        intentArg = cleanedIntentReq.substring(timeSearchStrA.length);
-        return ASK_TIME_INTENT;
-      }
-    }
-    else if (locale == 'fr-FR') {
-      dateSearchStrA = "quelle date est-il ";
-      timeSearchStrA = 'quelle heure est-il ';
-      if (cleanedIntentReq.toLowerCase().startsWith(dateSearchStrA)) {
-        // User is asking for the date in a specific location
-        intentArg = cleanedIntentReq.substring(dateSearchStrA.length);
-        return ASK_DATE_INTENT;
-      }
-      else if (cleanedIntentReq.toLowerCase().startsWith(timeSearchStrA)) {
-        // User is asking for the time in a specific location
-        intentArg = cleanedIntentReq.substring(timeSearchStrA.length);
-        return ASK_TIME_INTENT;
-      }
-    }
-    else if (locale == 'ja-JP') {
-      dateSearchStrA = 'では何日ですか';
-      timeSearchStrA = 'は今何時ですか';
-      timeSearchStrB = 'は何時ですか';
-      if (cleanedIntentReq.endsWith(dateSearchStrA)) {
-        // User is asking for the date in a specific location
-        intentArg = cleanedIntentReq.substring(0, cleanedIntentReq.length - dateSearchStrA.length);
-        return ASK_DATE_INTENT;
-      }
-      else if (cleanedIntentReq.endsWith(timeSearchStrA)) {
-        // User is asking for the time in a specific location
-        intentArg = cleanedIntentReq.substring(0, cleanedIntentReq.length - timeSearchStrA.length);
-        return ASK_TIME_INTENT;
-      }
-      else if (cleanedIntentReq.endsWith(timeSearchStrB)) {
-        // User is asking for the time in a specific location
-        intentArg = cleanedIntentReq.substring(0, cleanedIntentReq.length - timeSearchStrB.length);
-        return ASK_TIME_INTENT;
-      }
-    }
   }
   //return intentsMap[stripFinalPunctuation(intentRequest.toLowerCase())];
 }
@@ -201,18 +147,6 @@ export function getTemporalStr(intentRequest, lang) {
       if (formattedDate != null) {
         if (locale == "en-US") {
           retFulfillment = "Today is " + formattedDate + " " + intentArg + ".";
-        }
-        else if (locale == "es-ES") {
-          retFulfillment = "Hoy es " + formattedDate + " " + intentArg + ".";
-        }
-        else if (locale == "fr-FR") {
-          retFulfillment = "Aujourd'hui c'est le " + formattedDate + " " + intentArg + ".";
-        }
-        else if (locale == "ja-JP") {
-          // change 0 to 12 for Japanese
-          formattedDate = formattedDate.replace('後0:', '後12:')
-              .replace('前0:', '前12:');
-          retFulfillment = intentArg + "では" + formattedDate + "です。";
         }
       }
       else {
@@ -312,30 +246,12 @@ export function getTemporalStr(intentRequest, lang) {
     if (locale == "en-US") {
       retFulfillment = "Today is " + formattedDate + ".";
     }
-    else if (locale == "es-ES") {
-      retFulfillment = "Hoy es " + formattedDate + ".";
-    }
-    else if (locale == "fr-FR") {
-      retFulfillment = "Aujourd'hui ç'est " + formattedDate + ".";
-    }
-    else if (locale == "ja-JP") {
-      retFulfillment = "今日は" + formattedDate + "です。";
-    }
   }
   else if (intent == ASK_MONTH_INTENT) {
     // Month is in long format, e.g. 一月 or 二月, in japanese
     formattedDate = today.toLocaleString(locale, {month: 'long'});
     if (locale == "en-US") {
       retFulfillment = "It is " + formattedDate + ".";
-    }
-    else if (locale == "es-ES") {
-      retFulfillment = "Es " + formattedDate + ".";
-    }
-    else if (locale == "fr-FR") {
-      retFulfillment = "Il est " + formattedDate + ".";
-    }
-    else if (locale == "ja-JP") {
-      retFulfillment = formattedDate + "です。";
     }
   }
   return retFulfillment;

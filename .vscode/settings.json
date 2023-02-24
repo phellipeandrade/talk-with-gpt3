@@ -1,0 +1,6 @@
+{
+  "search.exclude": {
+    "**/.next/**": true
+  },
+  "search.searchEditor.reusePriorSearchConfiguration": true
+}

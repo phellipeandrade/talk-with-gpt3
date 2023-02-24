@@ -132,7 +132,7 @@ const voiceOptions = [
     famWife: "", famHusband: "", famChildren: "",
     friends: "",
     prompt: ""},
-  { value: "Matthew", label: "Matthew", language: "en_US",
+  { value: "Matthew", label: "James", language: "en_US",
     nationality: "", phoneNum: "", age: 30,
     livesIn: "", occupation: "", university: "", uniMajor: "", uniYear: DIDNT_ATTEND, hobbies: "",
     favFood: "", favDrink: "", favCoffeeShop: "", favRestaurant: "",
