@@ -22,25 +22,25 @@ main {
   margin: 1rem auto 0;
   max-width: 48rem;
   background: #F6F6F6;
-  border-radius: 1rem;
-  padding: 1rem;
+  border-radius: 0.5rem;
   box-shadow: 0 5px 8px rgba(0,0,0,.15);
 }
 
 .header {
   background: #140B43;
-  border-radius: 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
   padding: 1rem;
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
   z-index: 2;
   height: 5rem;
 }
 
 img.iqvia-logo {
-  width: 10rem;
+  width: 9rem;
+  margin-right: 3%;
 }
 
 .header h1 {
@@ -65,25 +65,34 @@ div#conversation {
   height: calc(100vh - 12rem);
   max-height: 600px;
   padding-top: 3rem;
+  padding: 1rem;
+  background-color: #fff;
 }
 
 .controls {
-  background: #0C7BC0;
-  padding-inline-end: 1rem;
+  background: rgba(205, 209, 211, 0.6);
+  padding: 1.3rem;
   display: flex;
-  border-radius: 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
   height: 5rem;
+  align-items: center;
 }
 
 .controls .user-input {
   flex: 1 1 auto;
   border: none;
   font: inherit;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
   background: none;
-  color: white;
   width: 84%;
-  border-radius: 1rem 0 0 1rem;
+  border-radius: 0.4rem;
+  color: #015587;
+  margin-right: 3%;
+  background: white;
+}
+
+.user-input:focus {
+  outline: 1px solid #015587;
 }
 
 .controls .user-submit:disabled {
@@ -91,31 +100,30 @@ div#conversation {
 }
 
 .controls .user-input::placeholder {
-  color: #FFFFFF7F;
+  color: rgba(1, 85, 135, 0.60);
 }
 
 .controls .user-submit {
   border: none;
   font: inherit;
-  background: white;
-  color: #0c7bc0;
-  font-weight: 600;
-  text-transform: uppercase;
+  background: #015587;
+  color: #fff;
   letter-spacing: 1px;
-  border-radius: 1rem;
-  min-width: 16%;
+  border-radius: 0.4rem;
+  min-width: 12%;
   padding: 0.4rem 1rem;
   display: flex;
   cursor: pointer;
   justify-content: center;
   align-items: center;
   margin: 1rem 0;
+  font-weight: 300;
 }
 
 .message {
   margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
+  padding: 0.4rem 1rem;
+  border-radius: 0.5rem;
   max-width: calc(100% - 2rem);
   position: relative;
   animation-name: message-in;
@@ -128,19 +136,17 @@ div#conversation {
 
 .message-sent {
   margin-inline-start: auto;
-  border-bottom-right-radius: 0;
-  background: #74b9ff;
-  color: white;
+  color: #595959;
+  border: 1px solid #595959;
 }
 
 .message-received {
-  background: #0984e3;
-  color: white;
+  color: #015586;
   margin-inline-end: auto;
-  border-top-left-radius: 0;
+  border: 1px solid #015586;
 }
 
-.message:after {
+/* .message:after {
   display: block;
   content: '';
   background: inherit;
@@ -154,7 +160,7 @@ div#conversation {
   border-left: 0.6rem solid white;
   right: 0;
   top: 100%;
-}
+} */
 
 .message-received:after {
   border-bottom: 0.1rem solid transparent;
@@ -175,7 +181,7 @@ div#conversation {
       border-radius: 0;
   }
   img.iqvia-logo {
-      width: 80px;
+      width: 60px;
   }
 }
 

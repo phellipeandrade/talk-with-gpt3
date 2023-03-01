@@ -78,17 +78,17 @@ export default function Home() {
   const [textInput, setTextInput] = useState("");
   const [audioUrl, setAudioUrl] = useState(
     "https://filesamples.com/samples/audio/mp3/sample1.mp3"
-  ); // Suggest declaring in constants.js
+  ); 
   const [videoUrl, setVideoUrl] = useState("");
   const [result, setResult] = useState();
   const [lang, setLang] = useState("en_US");
-  const [voiceId, setVoiceId] = useState(""); // Suggest declaring in constants.js. Also, why do other voiceId's below have a language suffix, but this one doesn't? Can it be consistent?
+  const [voiceId, setVoiceId] = useState("");
   const [processingTranscript, setProcessingTranscript] = useState(false);
   const [microphoneActive, setMicrophoneActive] = useState(false);
   const [chatBotActive, setChatBotActive] = useState(true);
   const [waitingOnBot, setWaitingOnBot] = useState(true);
 
-  const translateVoiceId = "Joanna"; // Suggest declaring in constants.js, then it can be referenced below without a declaration here.
+  const translateVoiceId = "James"; 
 
   let initialPrompt = generateInitialPrompt(lang);
 
@@ -104,9 +104,9 @@ export default function Home() {
     setTimeout(() => {
       handleVoiceChange("James");
       document.getElementById('user-input').focus();
-    addConversationText('Hi, I am James. I am here to simplify the process of searching for IQVIA clinical trials, making it easier for you to find the right study to participate in.');
+    addConversationText('Hi, I am James. I am here to simplify the process of searching for clinical trials, making it easier for you to find the right study to participate in.');
     addConversationText('Please, tell me your name.');
-    waitingOnBot(false)
+    setWaitingOnBot(false)
   }, 1000);
   }, []);
   function handleListenClick() {
@@ -136,7 +136,6 @@ export default function Home() {
   function toggleListenClick() {
     if (microphoneActive) {
       handleStopListenClick();
-      //NOTE: Don't try to speak that "The microphone is off"
     } else {
       sayMicrophoneOn();
       handleListenClick();
@@ -1314,8 +1313,8 @@ export default function Home() {
         <form onSubmit={onSubmit}>
 
           <div className="header">
+          <img className="iqvia-logo" src="https://www.iqvia.com/-/media/iqvia/iqvia-logo-white.svg" />
             <h1>IQVIA GPT-3 Clinical Trials Chat</h1>
-            <img className="iqvia-logo" src="https://www.iqvia.com/-/media/iqvia/iqvia-logo-white.svg" />
           </div>
 
           <div id="conversation">
@@ -1341,7 +1340,7 @@ export default function Home() {
               name="name"
               disabled={waitingOnBot}
               // Consider using a separate label. Placeholder is less accessible. If you don't want the label to be visible, you can use aria-label.
-              placeholder="What's on your mind?"
+              placeholder="What do you need today?"
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
               title="Type in your own text to talk to the character. You may also use the microphone to talk to the character."
@@ -1533,7 +1532,7 @@ export default function Home() {
               width={AVATAR_HEIGHT * 1.5}
               name="name"
               // Consider using a separate label. Placeholder is less accessible. If you don't want the label to be visible, you can use aria-label.
-              placeholder="What's on your mind?"
+              placeholder="What do you need today?"
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
               title="Type in your own text to talk to the character. You may also use the microphone to talk to the character."
