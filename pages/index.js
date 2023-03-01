@@ -1306,7 +1306,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>IQVIA GPT-3 Clinical Trials Chat</title>
+        <title>GPT-3 Clinical Trials Chat</title>
       </Head>
       <main>
         
@@ -1314,7 +1314,7 @@ export default function Home() {
 
           <div className="header">
           <img className="iqvia-logo" src="https://www.iqvia.com/-/media/iqvia/iqvia-logo-white.svg" />
-            <h1>IQVIA GPT-3 Clinical Trials Chat</h1>
+            <h1>GPT-3 Clinical Trials Chat</h1>
           </div>
 
           <div id="conversation">
